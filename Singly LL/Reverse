@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <stdbool.h>
+struct node{
+    int data;
+    struct node *next;
+}*first=NULL;
+void create(int a[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first=(struct node*)malloc(sizeof(struct node));  //create 1st node
+    first->data=a[0];
+    first->next=NULL;
+    last=first;
+    
+    for(i=1;i<n;i++){                               
+        t=(struct node*)malloc(sizeof(struct node));
+        t->data=a[i];
+        t->next=NULL;
+        last->next=t;                     //connecting the nodes
+        last=t;
+    }
+}
+void display(struct node *p){
+    while(p!=NULL){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+int count(struct node *p){
+    int c=0;
+    while(p!=0){
+        c++;
+        p=p->next;
+    }
+    return c;
+}
+int reverse1(struct node *p){           //Using array
+    int *a,i=0;
+    struct node *q;
+    a=(int *)malloc(sizeof(int)*count(p));
+    while(q){
+        a[i]=q->data;
+        q=q->next;
+        i++;
+    }
+    q=p;
+    i--;
+    while(q){
+        q->data=a[i];
+        q=q->next;
+        i--;
+    }
+}
+int reverse2(struct node *p){       //By reversing links
+    struct node *q=NULL;
+    struct node *r=NULL;            //Sliding ptrs
+    while(p!=NULL){
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    first=q;
+}
+int main(){
+    int a[]={3,5,12,1,8};
+    create(a,5);
+    reverse2(first);
+    display(first);
+    
+}
