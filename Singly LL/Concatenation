@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+    int data;
+    struct node *next;
+}*first=NULL,*second,*third;
+
+void create1(int a[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first=(struct node*)malloc(sizeof(struct node));  //create 1st node
+    first->data=a[0];
+    first->next=NULL;
+    last=first;
+    
+    for(i=1;i<n;i++){                               
+        t=(struct node*)malloc(sizeof(struct node));
+        t->data=a[i];
+        t->next=NULL;
+        last->next=t;                     //connecting the nodes
+        last=t;
+    }
+}
+void display(struct node *p){
+    while(p!=NULL){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+void create2(int a[],int n)
+{
+    int i;
+    struct node *t,*last;
+    second=(struct node*)malloc(sizeof(struct node));  //create 1st node
+    second->data=a[0];
+    second->next=NULL;
+    last=second;
+    
+    for(i=1;i<n;i++){                               
+        t=(struct node*)malloc(sizeof(struct node));
+        t->data=a[i];
+        t->next=NULL;
+        last->next=t;                     //connecting the nodes
+        last=t;
+    }
+}
+int concat(struct node *p,struct node *q)
+{
+    third=p;
+    while(p->next!=0){
+       p=p->next;
+    }
+      p->next=q;
+}
+int main(){
+    int a[]={3,5,12,1,8};
+    int b[]={1,2,3};
+    create1(a,5);
+    create2(b,3);
+    
+    printf("First\n");
+    display(first);
+    printf("\n\n");
+    
+    printf("Second\n");
+    display(second);
+    printf("\n\n");
+    
+    concat(first,second);
+    printf("Concatenated\n");
+    display(third);
+    printf("\n\n");
+    
+}
