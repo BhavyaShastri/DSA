@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <stdbool.h>
+struct node{
+    int data;
+    struct node *next;
+}*first=NULL;
+void create(int a[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first=(struct node*)malloc(sizeof(struct node));  //create 1st node
+    first->data=a[0];
+    first->next=NULL;
+    last=first;
+    
+    for(i=1;i<n;i++){                               
+        t=(struct node*)malloc(sizeof(struct node));
+        t->data=a[i];
+        t->next=NULL;
+        last->next=t;                     //connecting the nodes
+        last=t;
+    }
+}
+void display(struct node *p){
+    while(p!=NULL){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+void checksort(struct node *p){
+    int x=INT_MIN;
+    p=first;
+    while(p){
+        if(p->data<x)          //Checking for false codn
+          return -1;
+        x=p->data;
+        p=p->next;
+    }
+    return 0;
+}
+
+int main(){
+    int a[]={3,5,5,1,8,7,0,11,0};
+    create(a,9);
+    checksort(first);
+    display(first);
+    
+}
