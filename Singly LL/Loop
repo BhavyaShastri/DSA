@@ -1,0 +1,45 @@
+#include <stdlib.h>
+#include <stdio.h>
+struct node{
+    int data;
+    struct node *next;
+}*first=NULL;
+void create(int a[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first=(struct node*)malloc(sizeof(struct node));  //create 1st node
+    first->data=a[0];
+    first->next=NULL;
+    last=first;
+    
+    for(i=1;i<n;i++){                               
+        t=(struct node*)malloc(sizeof(struct node));
+        t->data=a[i];
+        t->next=NULL;
+        last->next=t;                     //connecting the nodes
+        last=t;
+    }
+}
+int loop(struct node *p){
+    struct node*q;
+    p=q=first;
+    
+    do{
+        p=p->next;
+        q=q->next;
+        q=q?q->next:q;
+    }while(p&&q&&p!=q);
+}
+int main(){
+    struct node *t1;
+    struct node *t2;
+    int A[]={10,20,30,40,50};
+    create(A,5);
+    
+    t1=first->next->next;
+    t1=first->next->next->next->next;
+    t2->next=t1;
+    printf("%d\n",loop(first));
+    return 0;
+}
