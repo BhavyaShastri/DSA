@@ -44,12 +44,12 @@ void insert(struct node*p,int index,int x){
         return;
     t=(struct node*)malloc(sizeof(struct node));
     t->data=x;
-    if(index==0){
+    if(index==0){                      //Before 1st node
         t->next=first;
         first=t;
     }
     else{
-        for(i=0;i<index-1;i++)
+        for(i=0;i<index-1;i++)        //At any pos
           p=p->next;
         t->next=p->next;
         p->next=t;
