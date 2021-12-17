@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+struct node{
+    int data;
+    struct node *next;
+}*first=NULL;
+void create(int a[],int n)
+{
+    int i;
+    struct node *t,*last;
+    first=(struct node*)malloc(sizeof(struct node));  //create 1st node
+    first->data=a[0];
+    first->next=NULL;
+    last=first;
+    
+    for(i=1;i<n;i++){                               
+        t=(struct node*)malloc(sizeof(struct node));
+        t->data=a[i];
+        t->next=NULL;
+        last->next=t;                     //connecting the nodes
+        last=t;
+    }
+}
+void display(struct node *p){
+    while(p!=NULL){
+        printf("%d ",p->data);
+        p=p->next;
+    }
+}
+int count(struct node *p){
+    int c=0;
+    while(p!=0){
+        c++;
+        p=p->next;
+    }
+    return c;
+}
+int delete(struct node *p,int index){
+    struct node *q;
+    int x=-1,i;
+    
+    if(index<1||index>count(p))
+       return -1;
+    if(index==1){   //1st pos
+        q=first;
+        x=first->data;
+        first=first->next;
+        free(p);
+        return x;
+    }
+    else{                //Random pos
+        for(i=0;i<index-1&&p;i++){
+            q=p;
+            p=p->next;
+        }
+    }
+    if(p){
+        q->next=p->next;
+        x=p->data;
+        free(p);
+        return x;
+    }
+}
+
+int main(){
+    int a[]={3,45,5,1,8,7,0,11,21};
+    create(a,9);
+    delete(first,5);
+    delete(first,3);
+    display(first);
+    
+}
